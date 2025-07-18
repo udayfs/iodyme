@@ -2,18 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  Search,
-  MenuSquare,
-  Briefcase,
-  Building2,
-  User,
-  Bell,
-} from "lucide-react";
+import { Search, Menu, Briefcase, Building2, User, Bell } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,19 +12,28 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
 const navigations = [
   { name: "Find Jobs", href: "/jobs" },
-  { name: "organisation", href: "/orgs" },
-  { name: "AI Guide", href: "/guide" },
+  { name: "Organisation", href: "/orgs" },
+  { name: "Guide", href: "/guide" },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Auth state (from clerk)
+  // TODO: Auth state (will be using clerk).
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
@@ -42,9 +41,9 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center mr-8 pb-1">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 <Briefcase className="h-4 w-4" />
               </div>
               <span className="text-xl font-bold text-primary">iodyme</span>
@@ -52,12 +51,12 @@ export function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-8">
+          <div className="hidden lg:flex items-center space-x-3">
             {navigations.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-bold text-gray-600 transition-colors hover:text-primary"
+                className="text-base font-medium text-muted-foreground hover:text-primary"
               >
                 {item.name}
               </Link>
@@ -65,25 +64,24 @@ export function Navbar() {
           </div>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden lg:flex lg:flex-1 lg:max-w lg:mx-8">
+          <div className="hidden lg:flex flex-1 max-w mx-10">
             <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search jobs, companies..."
-                className="pl-10 pr-4"
+                className="pl-10 pr-4 rounded-full"
               />
             </div>
           </div>
 
-          {/* navigation rhs */}
-          <div className="flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-2">
             {/* Post Job Button */}
             <Button
               variant="outline"
-              className="hidden sm:inline-flex bg-transparent hover:cursor-pointer"
+              className="inline-flex bg-transparent hover:cursor-pointer mr-4 rounded-full"
             >
-              <Building2 className="mr-2 h-4 w-4" />
+              <Building2 className="h-4 w-4" />
               Post Job
             </Button>
 
@@ -144,77 +142,85 @@ export function Navbar() {
                 </DropdownMenu>
               </div>
             ) : (
-              <div className="hidden lg:flex lg:items-center lg:space-x-2">
-                <Button variant="ghost" onClick={() => setIsLoggedIn(true)}>
+              //  Auth Buttons
+              <div className="hidden lg:flex items-center ml-4 space-x-2">
+                <Button
+                  variant="outline"
+                  className="rounded-full hover:cursor-pointer"
+                  onClick={() => setIsLoggedIn(true) /* TODO: remove this. */}
+                >
                   Sign In
                 </Button>
-                <Button onClick={() => setIsLoggedIn(true)}>Sign Up</Button>
+                <Button
+                  className="rounded-full hover:cursor-pointer"
+                  onClick={() => setIsLoggedIn(true) /* TODO: remove this. */}
+                >
+                  Sign Up
+                </Button>
               </div>
             )}
+          </div>
 
-            {/* Mobile Menu */}
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" className="lg:hidden" size="icon">
-                  <MenuSquare className="h-5 w-5" />
-                  <span className="sr-only">Toggle menu</span>
-                </Button>
-              </SheetTrigger>
+          {/* Mobile Menu */}
+          <Sheet modal open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" className="lg:hidden" size="icon">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
 
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <div className="flex flex-col space-y-4 mt-4">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetHeader className="mb-[-10]">
+                <SheetTitle asChild>
                   {/* Mobile Search */}
-                  <div className="relative">
+                  <div className="relative top-[-6] mr-6">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       type="search"
                       placeholder="Search jobs, companies..."
-                      className="pl-10 pr-4"
+                      className="pl-10 font-light"
                     />
                   </div>
+                </SheetTitle>
+              </SheetHeader>
 
-                  {/* Mobile Navigation */}
-                  <div className="flex flex-col space-y-2">
-                    {navigations.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-primary"
-                        onClick={() => setIsOpen(false)}
+              {/* Mobile Navigation */}
+              <div className="grid flex-1 auto-rows-min px-2">
+                <div className="grid gap-3">
+                  {navigations.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-primary"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                  <Button
+                    variant="outline"
+                    className="mt-3 ml-2 rounded-lg hover:cursor-pointer"
+                  >
+                    <Building2 className="mr-2 h-4 w-4" />
+                    Post Job
+                  </Button>
+
+                  {/* Auth Buttons */}
+                  {!isLoggedIn && (
+                    <div className="grid gap-2">
+                      <Button
+                        className="mt-1 ml-2 rounded-lg hover:cursor-pointer"
+                        onClick={() => setIsLoggedIn(true)}
                       >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-
-                  <div className="border-t pt-4">
-                    <Button className="w-full mb-2">
-                      <Building2 className="mr-2 h-4 w-4" />
-                      Post Job
-                    </Button>
-
-                    {!isLoggedIn && (
-                      <div className="flex flex-col space-y-2">
-                        <Button
-                          variant="outline"
-                          className="w-full bg-transparent"
-                          onClick={() => setIsLoggedIn(true)}
-                        >
-                          Sign In
-                        </Button>
-                        <Button
-                          className="w-full"
-                          onClick={() => setIsLoggedIn(true)}
-                        >
-                          Sign Up
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+                        Sign In
+                      </Button>
+                    </div>
+                  )}
                 </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </nav>

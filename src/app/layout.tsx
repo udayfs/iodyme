@@ -1,5 +1,6 @@
 import "./globals.css";
 import { INTER_FONT } from "@/app/fonts";
+import ThemeProvider from "@/components/theme-provider";
 
 function RootLayout({
   children,
@@ -7,8 +8,17 @@ function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${INTER_FONT.className} antialiased`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${INTER_FONT.className} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

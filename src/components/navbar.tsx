@@ -2,19 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-import { Search, Menu, Briefcase, Building2, User, Bell } from "lucide-react";
+import { Search, Menu, Briefcase, Building2 } from "lucide-react";
 import ThemeToggle from "@/components/theme-toggle";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,8 +17,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+
+import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
 
 const navigations = [
   { name: "Find Jobs", href: "/jobs" },
@@ -34,10 +27,8 @@ const navigations = [
 ];
 
 function Navbar({ className }: { className?: string }) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-
-  // TODO: Auth state (will be using clerk).
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <nav
@@ -93,80 +84,28 @@ function Navbar({ className }: { className?: string }) {
               Post Job
             </Button>
 
-            {isLoggedIn ? (
-              <div className="flex items-center space-x-2">
-                {/* Notifications */}
-                <Button variant="ghost" size="icon" className="relative">
-                  <Bell className="h-4 w-4" />
-                  <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs">
-                    3
-                  </Badge>
-                </Button>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
 
-                {/* User Menu */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="relative h-8 w-8 rounded-full"
-                    >
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage
-                          src="/placeholder.svg?height=32&width=32"
-                          alt="User"
-                        />
-                        <AvatarFallback>JD</AvatarFallback>
-                      </Avatar>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56" align="end" forceMount>
-                    <DropdownMenuLabel className="font-normal">
-                      <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">
-                          John Doe
-                        </p>
-                        <p className="text-xs leading-none text-muted-foreground">
-                          john@example.com
-                        </p>
-                      </div>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <User className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Briefcase className="mr-2 h-4 w-4" />
-                      <span>My Applications</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <span>Settings</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => setIsLoggedIn(false)}>
-                      <span>Log out</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              //  Auth Buttons
+            <SignedOut>
+              {/* Auth Buttons */}
               <div className="hidden lg:flex items-center ml-4 space-x-2">
                 <Button
                   variant="outline"
                   className="rounded-xl hover:cursor-pointer"
-                  onClick={() => setIsLoggedIn(true) /* TODO: remove this. */}
+                  onClick={() => router.push("/sign-in")}
                 >
                   Sign In
                 </Button>
                 <Button
                   className="rounded-xl hover:cursor-pointer"
-                  onClick={() => setIsLoggedIn(true) /* TODO: remove this. */}
+                  onClick={() => router.push("/sign-up")}
                 >
                   Sign Up
                 </Button>
               </div>
-            )}
+            </SignedOut>
 
             {/* Desktop theme toggle */}
             <ThemeToggle />
@@ -226,16 +165,16 @@ function Navbar({ className }: { className?: string }) {
                     </Button>
 
                     {/* Auth Button */}
-                    {!isLoggedIn && (
+                    <SignedOut>
                       <div className="grid gap-2">
                         <Button
                           className="mt-1 ml-2 rounded-xl hover:cursor-pointer"
-                          onClick={() => setIsLoggedIn(true)}
+                          onClick={() => router.push("/sign-in")}
                         >
                           Sign In
                         </Button>
                       </div>
-                    )}
+                    </SignedOut>
                   </div>
                 </div>
               </SheetContent>

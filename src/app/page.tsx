@@ -1,9 +1,11 @@
 import Navbar from "@/components/navbar";
+import { Spotlight } from "@/components/ui/spotlight";
 
 function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen dark:bg-black/[0.98] relative overflow-hidden">
       <Navbar />
+      <Spotlight />
       <main className="container mx-auto px-4 py-8">
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">

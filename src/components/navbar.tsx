@@ -79,6 +79,7 @@ function Navbar({ className }: { className?: string }) {
             <Button
               variant="outline"
               className="inline-flex bg-transparent hover:cursor-pointer mr-4 rounded-xl"
+              onClick={() => router.push("/jobpost")}
             >
               <Building2 className="h-4 w-4" />
               Post Job

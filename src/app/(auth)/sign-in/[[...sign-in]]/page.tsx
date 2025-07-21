@@ -1,5 +1,13 @@
 import { SignIn } from "@clerk/nextjs";
 
-export default function SignInPage() {
-  return <SignIn />;
+function SignInPage() {
+  return (
+    <div className="inset-0 flex items-center w-full justify-center min-h-screen relative bg-black/[0.96]">
+      <div className="relative z-10 -top-25">
+        <SignIn />
+      </div>
+    </div>
+  );
 }
+
+export default SignInPage;

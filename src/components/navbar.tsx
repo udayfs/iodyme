@@ -69,7 +69,7 @@ function Navbar({ className }: { className?: string }) {
               <Input
                 type="search"
                 placeholder="Search jobs, companies..."
-                className="pl-10 pr-4 rounded-xl"
+                className="pl-10 pr-4 rounded-xl focus-visible:border-sky-500 focus-visible:ring-0"
               />
             </div>
           </div>
@@ -113,7 +113,11 @@ function Navbar({ className }: { className?: string }) {
 
           <div className="flex lg:hidden items-center space-x-2">
             {/* Mobile theme toggle */}
-            <ThemeToggle />
+            <ThemeToggle className="mr-3" />
+
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
 
             {/* Mobile Menu */}
             <Sheet modal open={isOpen} onOpenChange={setIsOpen}>
@@ -137,7 +141,7 @@ function Navbar({ className }: { className?: string }) {
                       <Input
                         type="search"
                         placeholder="Search jobs, companies..."
-                        className="pl-10 font-light rounded-xl"
+                        className="pl-10 font-light rounded-xl text-sm focus-visible:border-sky-500 focus-visible:ring-0"
                       />
                     </div>
                   </SheetTitle>

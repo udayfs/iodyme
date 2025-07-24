@@ -1,5 +1,5 @@
 import "./globals.css";
-import { INTER_FONT } from "@/app/fonts";
+import { ONEST_FONT } from "@/app/fonts";
 import ThemeProvider from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { shadesOfPurple } from "@clerk/themes";
@@ -12,7 +12,7 @@ function RootLayout({
   return (
     <ClerkProvider appearance={{ baseTheme: shadesOfPurple }}>
       <html lang="en" suppressHydrationWarning>
-        <body className={`${INTER_FONT.className} antialiased`}>
+        <body className={`${ONEST_FONT.className} antialiased`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"

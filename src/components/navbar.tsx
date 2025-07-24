@@ -5,11 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-import { Search, Menu, Briefcase, Building2 } from "lucide-react";
+import { Menu, Briefcase, Building2 } from "lucide-react";
 import ThemeToggle from "@/components/theme-toggle";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Sheet,
   SheetContent,
@@ -40,17 +39,17 @@ function Navbar({ className }: { className?: string }) {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center mr-8 pb-1">
+          <div className="flex items-center pb-1">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <Briefcase className="h-4 w-4" />
               </div>
-              <span className="text-xl font-bold text-primary">iodyme</span>
+              <span className="text-lg font-bold text-primary">iodyme</span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-3">
+          <div className="hidden lg:flex items-center space-x-8 mr-auto ml-7">
             {navigations.map((item) => (
               <Link
                 key={item.name}
@@ -62,23 +61,11 @@ function Navbar({ className }: { className?: string }) {
             ))}
           </div>
 
-          {/* Search Bar - Desktop */}
-          <div className="hidden lg:flex flex-1 max-w mx-10">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search jobs, companies..."
-                className="pl-10 pr-4 rounded-xl focus-visible:border-sky-500 focus-visible:ring-0"
-              />
-            </div>
-          </div>
-
           <div className="hidden lg:flex items-center space-x-2">
             {/* Post Job Button */}
             <Button
               variant="outline"
-              className="inline-flex bg-transparent hover:cursor-pointer mr-4 rounded-xl"
+              className="inline-flex bg-transparent hover:cursor-pointer mr-4 rounded-lg"
               onClick={() => router.push("/jobpost")}
             >
               <Building2 className="h-4 w-4" />
@@ -91,16 +78,16 @@ function Navbar({ className }: { className?: string }) {
 
             <SignedOut>
               {/* Auth Buttons */}
-              <div className="hidden lg:flex items-center ml-4 space-x-2">
+              <div className="hidden lg:flex items-center ml-2 space-x-2">
                 <Button
                   variant="outline"
-                  className="rounded-xl hover:cursor-pointer"
+                  className="rounded-lg hover:cursor-pointer"
                   onClick={() => router.push("/sign-in")}
                 >
                   Sign In
                 </Button>
                 <Button
-                  className="rounded-xl hover:cursor-pointer"
+                  className="rounded-lg hover:cursor-pointer"
                   onClick={() => router.push("/sign-up")}
                 >
                   Sign Up
@@ -125,7 +112,7 @@ function Navbar({ className }: { className?: string }) {
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="lg:hidden rounded-xl"
+                  className="lg:hidden rounded-lg"
                   size="icon"
                 >
                   <Menu className="h-5 w-5" />
@@ -136,15 +123,13 @@ function Navbar({ className }: { className?: string }) {
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <SheetHeader className="mb-[-10]">
                   <SheetTitle asChild>
-                    {/* Mobile Search */}
-                    <div className="relative top-[-6] mr-6">
-                      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                      <Input
-                        type="search"
-                        placeholder="Search jobs, companies..."
-                        className="pl-10 font-light rounded-xl text-sm focus-visible:border-sky-500 focus-visible:ring-0"
-                      />
-                    </div>
+                    <Link
+                      href="/"
+                      className="font-bold text-lg px-1"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Iodyme
+                    </Link>
                   </SheetTitle>
                 </SheetHeader>
 
@@ -163,7 +148,7 @@ function Navbar({ className }: { className?: string }) {
                     ))}
                     <Button
                       variant="outline"
-                      className="mt-3 ml-2 rounded-xl hover:cursor-pointer"
+                      className="mt-3 ml-2 rounded-lg hover:cursor-pointer"
                     >
                       <Building2 className="mr-2 h-4 w-4" />
                       Post Job
@@ -173,7 +158,7 @@ function Navbar({ className }: { className?: string }) {
                     <SignedOut>
                       <div className="grid gap-2">
                         <Button
-                          className="mt-1 ml-2 rounded-xl hover:cursor-pointer"
+                          className="mt-1 ml-2 rounded-lg hover:cursor-pointer"
                           onClick={() => router.push("/sign-in")}
                         >
                           Sign In

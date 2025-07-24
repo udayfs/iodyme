@@ -1,45 +1,390 @@
-import Navbar from "@/components/navbar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Spotlight } from "@/components/ui/spotlight";
+import {
+  Search,
+  MapPin,
+  Users,
+  TrendingUp,
+  Shield,
+  Zap,
+  Globe,
+  ArrowRight,
+  Star,
+  Building2,
+  Clock,
+} from "lucide-react";
 
-function Home() {
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+
+export default function Page() {
   return (
-    <div className="min-h-screen dark:bg-black/[0.98] relative overflow-hidden">
+    <div className="min-h-screen dark:bg-black dark:text-white text-gray-950">
       <Navbar />
-      <Spotlight />
-      <main className="container mx-auto px-4 py-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight">
-            Welcome to <span className="text-primary">iodyme</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Find your dream job or hire the perfect candidate. Connect talent
-            with opportunity.
-          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="p-6 border rounded-lg">
-              <h3 className="font-semibold mb-2">For Job Seekers</h3>
-              <p className="text-sm text-muted-foreground">
-                Browse thousands of job opportunities from top companies
-              </p>
-            </div>
-            <div className="p-6 border rounded-lg">
-              <h3 className="font-semibold mb-2">For Employers</h3>
-              <p className="text-sm text-muted-foreground">
-                Post jobs and find qualified candidates quickly
-              </p>
-            </div>
-            <div className="p-6 border rounded-lg">
-              <h3 className="font-semibold mb-2">Career Resources</h3>
-              <p className="text-sm text-muted-foreground">
-                Get salary insights and career advice from experts
-              </p>
-            </div>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        <Spotlight />
+        <div className="relative container mx-auto px-4 py-20 lg:py-32">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-200 to-cyan-400 bg-clip-text text-transparent">
+              Start Your Career With
+              <span className="block p-1 font-bold bg-gradient-to-r from-sky-200 to-sky-400 bg-clip-text text-transparent">
+                Iodyme
+              </span>
+            </h1>
+
+            <p className="text-md p-2 md:text-xl mb-12 max-w-3xl mx-auto leading-relaxed">
+              Connect with top companies and discover opportunities that match
+              your skill set. Join thousands of professionals who found their
+              perfect role in the industry.
+            </p>
+
+            {/* Search Bar */}
+            <form className="max-w-3xl mx-auto mb-5">
+              <div className="flex flex-col sm:flex-row gap-4 p-2 dark:bg-stone-900/50 bg-slate-200 backdrop-blur-sm rounded-lg border border-slate-700/50">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+                  <Input
+                    placeholder="Job title, keywords, or company"
+                    className="pl-10 bg-transparent border-0 rounded-lg focus-visible:ring-2 focus-visible:ring-sky-500"
+                  />
+                </div>
+                <div className="flex-1 relative">
+                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+                  <Input
+                    placeholder="Location"
+                    className="pl-10 bg-transparent border-0 rounded-lg focus-visible:ring-2 focus-visible:ring-sky-500"
+                  />
+                </div>
+                <Button
+                  className="px-8 py-3 rounded-lg font-semibold hover:cursor-pointer"
+                  variant="outline"
+                  type="submit"
+                >
+                  Search Jobs
+                </Button>
+              </div>
+            </form>
+
+            {/* Stats */}
+            {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-blue-400 mb-2">
+                  50K+
+                </div>
+                <div className="text-slate-400">Active Jobs</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2">
+                  10K+
+                </div>
+                <div className="text-slate-400">Companies</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-blue-400 mb-2">
+                  1M+
+                </div>
+                <div className="text-slate-400">Job Seekers</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2">
+                  95%
+                </div>
+                <div className="text-slate-400">Success Rate</div>
+              </div>
+            </div> */}
           </div>
         </div>
-      </main>
+      </section>
+
+      {/* Featured Jobs */}
+      <section className="py-20 bg-gray-900/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Featured Opportunities
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Discover hand-picked positions from top-tier companies
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {[
+              {
+                title: "Senior Frontend Developer",
+                company: "TechCorp",
+                location: "San Francisco, CA",
+                salary: "$120K - $180K",
+                type: "Full-time",
+                tags: ["React", "TypeScript", "Next.js"],
+              },
+              {
+                title: "Product Manager",
+                company: "InnovateLab",
+                location: "New York, NY",
+                salary: "$140K - $200K",
+                type: "Full-time",
+                tags: ["Strategy", "Analytics", "Leadership"],
+              },
+              {
+                title: "DevOps Engineer",
+                company: "CloudScale",
+                location: "Remote",
+                salary: "$110K - $160K",
+                type: "Remote",
+                tags: ["AWS", "Kubernetes", "Docker"],
+              },
+            ].map((job, index) => (
+              <Card
+                key={index}
+                className="bg-slate-800/50 border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+                      <Building2 className="w-6 h-6 text-white" />
+                    </div>
+                    <Badge
+                      variant="secondary"
+                      className="bg-blue-500/20 text-blue-300 border-blue-400/30"
+                    >
+                      {job.type}
+                    </Badge>
+                  </div>
+
+                  <h3 className="text-xl font-semibold mb-2 text-white">
+                    {job.title}
+                  </h3>
+                  <p className="text-slate-400 mb-2">{job.company}</p>
+                  <div className="flex items-center text-slate-400 mb-3">
+                    <MapPin className="w-4 h-4 mr-2" />
+                    <span className="text-sm">{job.location}</span>
+                  </div>
+                  <div className="text-blue-400 font-semibold mb-4">
+                    {job.salary}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {job.tags.map((tag, tagIndex) => (
+                      <Badge
+                        key={tagIndex}
+                        variant="outline"
+                        className="border-slate-600 text-slate-300"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  <Button className="w-full bg-slate-700 hover:bg-slate-600 text-white">
+                    View Details
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Button
+              variant="outline"
+              className="border-blue-500 text-blue-400 hover:bg-blue-500/10 bg-transparent"
+            >
+              View All Jobs
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Why Choose Our Platform?
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Advanced tools and features designed to accelerate your career
+              growth
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                icon: <Zap className="w-8 h-8" />,
+                title: "Instant Matching",
+                description:
+                  "AI-powered algorithm matches you with relevant opportunities in real-time",
+              },
+              {
+                icon: <Shield className="w-8 h-8" />,
+                title: "Verified Companies",
+                description:
+                  "All employers are thoroughly vetted to ensure legitimate opportunities",
+              },
+              {
+                icon: <TrendingUp className="w-8 h-8" />,
+                title: "Career Growth",
+                description:
+                  "Access to mentorship programs and skill development resources",
+              },
+              {
+                icon: <Globe className="w-8 h-8" />,
+                title: "Global Reach",
+                description:
+                  "Connect with companies worldwide, including remote opportunities",
+              },
+              {
+                icon: <Users className="w-8 h-8" />,
+                title: "Community",
+                description:
+                  "Join a network of professionals and industry experts",
+              },
+              {
+                icon: <Clock className="w-8 h-8" />,
+                title: "24/7 Support",
+                description:
+                  "Round-the-clock assistance for all your job search needs",
+              },
+            ].map((feature, index) => (
+              <Card
+                key={index}
+                className="bg-slate-800/30 border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 group"
+              >
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-cyan-400/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:from-blue-500/30 group-hover:to-cyan-400/30 transition-all duration-300">
+                    <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
+                      {feature.icon}
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4 text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-gray-900/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Success Stories
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Hear from professionals who transformed their careers with us
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                name: "Sarah Chen",
+                role: "Software Engineer at Google",
+                content:
+                  "Found my dream job in just 2 weeks! The platform's matching algorithm is incredibly accurate.",
+                rating: 5,
+              },
+              {
+                name: "Marcus Johnson",
+                role: "Product Manager at Stripe",
+                content:
+                  "The quality of opportunities here is unmatched. Highly recommend to any tech professional.",
+                rating: 5,
+              },
+              {
+                name: "Emily Rodriguez",
+                role: "UX Designer at Figma",
+                content:
+                  "Amazing support team and seamless application process. Couldn't be happier with the results!",
+                rating: 5,
+              },
+            ].map((testimonial, index) => (
+              <Card key={index} className="bg-slate-800/50 border-slate-700/50">
+                <CardContent className="p-8">
+                  <div className="flex mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 text-yellow-400 fill-current"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-slate-300 mb-6 leading-relaxed">
+                    &quot;{testimonial.content}&quot;
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center mr-4">
+                      <span className="text-white font-semibold">
+                        {testimonial.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </span>
+                    </div>
+                    <div>
+                      <div className="font-semibold text-white">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-slate-400 text-sm">
+                        {testimonial.role}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-cyan-500/20" />
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            Ready to Launch Your Career?
+          </h2>
+          <p className="text-xl text-slate-300 mb-12 max-w-3xl mx-auto">
+            Join thousands of professionals who have already found their perfect
+            role. Your next opportunity is just one click away.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <Button className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white px-8 py-4 text-lg font-semibold rounded-xl">
+              Get Started Free
+            </Button>
+            <Button
+              variant="outline"
+              className="border-blue-500 text-blue-400 hover:bg-blue-500/10 px-8 py-4 text-lg rounded-xl bg-transparent"
+            >
+              For Employers
+            </Button>
+          </div>
+
+          <p className="text-slate-500 text-sm mt-6">
+            No credit card required • Free forever • Join 1M+ professionals
+          </p>
+        </div>
+      </section>
+      <Footer />
     </div>
   );
 }
-
-export default Home;

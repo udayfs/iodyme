@@ -44,7 +44,7 @@ function Navbar({ className }: { className?: string }) {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <Briefcase className="h-4 w-4" />
               </div>
-              <span className="text-lg font-bold text-primary">iodyme</span>
+              <span className="text-lg font-bold text-sky-500">iodyme</span>
             </Link>
           </div>
 
@@ -87,7 +87,7 @@ function Navbar({ className }: { className?: string }) {
                   Sign In
                 </Button>
                 <Button
-                  className="rounded-lg hover:cursor-pointer"
+                  className="rounded-lg hover:cursor-pointer bg-sky-400"
                   onClick={() => router.push("/sign-up")}
                 >
                   Sign Up

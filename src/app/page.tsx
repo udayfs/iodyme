@@ -18,7 +18,7 @@ import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
-export default function Page() {
+function Page() {
   return (
     <>
       <Navbar />
@@ -43,7 +43,7 @@ export default function Page() {
 
               {/* Search Bar */}
               <form className="max-w-3xl mx-auto mb-5">
-                <div className="flex flex-col sm:flex-row gap-4 p-2 dark:bg-stone-900/50 bg-slate-200 backdrop-blur-sm rounded-lg border border-slate-700/50">
+                <div className="flex flex-col sm:flex-row gap-4 p-2 dark:bg-stone-900/50 bg-slate-200 hover:border-sky-500 backdrop-blur-sm rounded-lg border border-slate-700/50">
                   <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
                     <Input
@@ -59,7 +59,7 @@ export default function Page() {
                     />
                   </div>
                   <Button
-                    className="px-8 py-3 rounded-lg font-semibold hover:cursor-pointer hover:bg-sky-300"
+                    className="px-8 py-3 rounded-lg font-semibold hover:cursor-pointer dark:hover:bg-sky-500 hover:bg-sky-500"
                     variant="outline"
                     type="submit"
                   >
@@ -112,46 +112,42 @@ export default function Page() {
               ].map((job, index) => (
                 <Card
                   key={index}
-                  className="bg-slate-800/50 border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
+                  className="dark:bg-stone-800/50 dark:border-stone-500/50 hover:border-sky-500/50 transition-all duration-600 hover:shadow-lg hover:shadow-blue-500/10"
                 >
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+                      <div className="w-12 h-12 border-2 bg-gray-600 rounded-lg flex items-center justify-center">
                         <Building2 className="w-6 h-6 text-white" />
                       </div>
                       <Badge
                         variant="secondary"
-                        className="bg-blue-500/20 text-blue-300 border-blue-400/30"
+                        className="bg-sky-500 text-white"
                       >
                         {job.type}
                       </Badge>
                     </div>
 
-                    <h3 className="text-xl font-semibold mb-2 text-white">
-                      {job.title}
-                    </h3>
-                    <p className="text-slate-400 mb-2">{job.company}</p>
-                    <div className="flex items-center text-slate-400 mb-3">
+                    <h3 className="text-xl font-semibold mb-2">{job.title}</h3>
+                    <p className="text-gray-500/60 mb-2">{job.company}</p>
+                    <div className="flex items-center mb-3">
                       <MapPin className="w-4 h-4 mr-2" />
                       <span className="text-sm">{job.location}</span>
                     </div>
-                    <div className="text-blue-400 font-semibold mb-4">
-                      {job.salary}
-                    </div>
+                    <div className="font-semibold mb-4">{job.salary}</div>
 
                     <div className="flex flex-wrap gap-2 mb-4">
                       {job.tags.map((tag, tagIndex) => (
                         <Badge
                           key={tagIndex}
                           variant="outline"
-                          className="border-slate-600 text-slate-300"
+                          className="border-slate-600 not-dark:bg-gray-200"
                         >
                           {tag}
                         </Badge>
                       ))}
                     </div>
 
-                    <Button className="w-full bg-slate-700 hover:bg-slate-600 text-white">
+                    <Button className="w-full bg-stone-700 hover:bg-slate-600 text-white hover:cursor-pointer">
                       View Details
                     </Button>
                   </CardContent>
@@ -207,18 +203,16 @@ export default function Page() {
               ].map((feature, index) => (
                 <Card
                   key={index}
-                  className="bg-slate-800/30 border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 group"
+                  className="dark:bg-stone-800/50 dark:border-stone-500/50 dark:hover:border-sky-500/50 hover:border-sky-500/50 transition-all duration-600"
                 >
                   <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-cyan-400/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:from-blue-500/30 group-hover:to-cyan-400/30 transition-all duration-300">
-                      <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
-                        {feature.icon}
-                      </div>
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 bg-gray-300">
+                      <div className="text-sky-800">{feature.icon}</div>
                     </div>
-                    <h3 className="text-xl font-semibold mb-4 text-white">
+                    <h3 className="text-xl font-semibold mb-4">
                       {feature.title}
                     </h3>
-                    <p className="text-slate-400 leading-relaxed">
+                    <p className="not-dark:text-gray-700 text-gray-500 leading-relaxed">
                       {feature.description}
                     </p>
                   </CardContent>
@@ -228,7 +222,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Testimonials */}
+        {/* Testimonials TODO: Revamp this! */}
         <section className="py-8">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
@@ -266,7 +260,7 @@ export default function Page() {
               ].map((testimonial, index) => (
                 <Card
                   key={index}
-                  className="bg-slate-800/50 border-slate-700/50"
+                  className="dark:bg-stone-800/50 dark:border-stone-500/50 hover:shadow-lg not-dark:border-2"
                 >
                   <CardContent className="p-8">
                     <div className="flex mb-4">
@@ -277,12 +271,12 @@ export default function Page() {
                         />
                       ))}
                     </div>
-                    <p className="text-slate-300 mb-6 leading-relaxed">
+                    <p className="mb-6 leading-relaxed">
                       &quot;{testimonial.content}&quot;
                     </p>
                     <div className="flex items-center">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center mr-4">
-                        <span className="text-white font-semibold">
+                      <div className="w-12 h-12 bg-sky-500 rounded-full flex items-center justify-center mr-4">
+                        <span className="font-semibold">
                           {testimonial.name
                             .split(" ")
                             .map((n) => n[0])
@@ -290,10 +284,8 @@ export default function Page() {
                         </span>
                       </div>
                       <div>
-                        <div className="font-semibold text-white">
-                          {testimonial.name}
-                        </div>
-                        <div className="text-slate-400 text-sm">
+                        <div className="font-semibold">{testimonial.name}</div>
+                        <div className="not-dark:text-gray-600 text-gray-500 text-sm">
                           {testimonial.role}
                         </div>
                       </div>
@@ -351,3 +343,5 @@ export default function Page() {
     </>
   );
 }
+
+export default Page;

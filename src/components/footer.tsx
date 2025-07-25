@@ -21,8 +21,8 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">For Job Seekers</h4>
-            <ul className="space-y-2 text-slate-400">
+            <h4 className="font-semibold mb-4">For Job Seekers</h4>
+            <ul className="space-y-2 text-gray-500">
               <li>
                 <Link
                   href="/jobs"
@@ -59,8 +59,8 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">For Employers</h4>
-            <ul className="space-y-2 text-slate-400">
+            <h4 className="font-semibold mb-4">For Employers</h4>
+            <ul className="space-y-2 text-gray-500">
               <li>
                 <Link
                   href="/jobpost"

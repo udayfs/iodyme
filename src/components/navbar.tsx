@@ -21,7 +21,7 @@ import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
 
 const navigations = [
   { name: "Find Jobs", href: "/jobs" },
-  { name: "Organisation", href: "/orgs" },
+  { name: "Organisations", href: "/orgs" },
   { name: "Guide", href: "/guide" },
 ];
 

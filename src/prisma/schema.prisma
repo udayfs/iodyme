@@ -15,5 +15,49 @@ model User {
   subscriptionEnds DateTime?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
+
+  // Relations
+  organisations    Organisation[] @relation("OrganisationAdmins")
+  jobApplications  JobApplication[]
 }
 
+// Organisation Table
+model Organisation {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  website     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  admins      User[]    @relation("OrganisationAdmins")
+  jobPosts    JobPost[]
+}
+
+// JobPost Table
+model JobPost {
+  id             String    @id @default(uuid())
+  title          String
+  description    String
+  location       String?
+  salary         Float?
+  postedAt       DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisationId String
+  applications   JobApplication[]
+}
+
+// JobApplication Table
+model JobApplication {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [user_id])
+  userId     String
+  jobPost    JobPost  @relation(fields: [jobPostId], references: [id])
+  jobPostId  String
+  appliedAt  DateTime @default(now())
+  status     String   // e.g., "pending", "accepted", "rejected"
+}

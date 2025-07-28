@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:generate": "bunx prisma generate --schema=./src/prisma/schema.prisma",
+    "prisma:migrate": "bunx prisma migrate --schema=./src/prisma/scheme.prisma"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.25.4",

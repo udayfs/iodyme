@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User Table
 model User {
   user_id          String    @id @unique
   email            String    @unique
@@ -17,47 +16,44 @@ model User {
   updatedAt        DateTime  @updatedAt
 
   // Relations
-  organisations    Organisation[] @relation("OrganisationAdmins")
-  jobApplications  JobApplication[]
+  organisations   Organisation[]   @relation("OrganisationAdmins")
+  jobApplications JobApplication[]
 }
 
-// Organisation Table
 model Organisation {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   description String?
   website     String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   // Relations
-  admins      User[]    @relation("OrganisationAdmins")
-  jobPosts    JobPost[]
+  admins   User[]    @relation("OrganisationAdmins")
+  jobPosts JobPost[]
 }
 
-// JobPost Table
 model JobPost {
-  id             String    @id @default(uuid())
-  title          String
-  description    String
-  location       String?
-  salary         Float?
-  postedAt       DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  location    String?
+  salary      Float?
+  postedAt    DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   // Relations
-  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  organisation   Organisation     @relation(fields: [organisationId], references: [id])
   organisationId String
   applications   JobApplication[]
 }
 
-// JobApplication Table
 model JobApplication {
-  id         String   @id @default(uuid())
-  user       User     @relation(fields: [userId], references: [user_id])
-  userId     String
-  jobPost    JobPost  @relation(fields: [jobPostId], references: [id])
-  jobPostId  String
-  appliedAt  DateTime @default(now())
-  status     String   // e.g., "pending", "accepted", "rejected"
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [user_id])
+  userId    String
+  jobPost   JobPost  @relation(fields: [jobPostId], references: [id])
+  jobPostId String
+  appliedAt DateTime @default(now())
+  status    String // e.g., "pending", "accepted", "rejected"
 }

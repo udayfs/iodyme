@@ -9,7 +9,9 @@ function Footer() {
           <div className="col-span-2">
             <div className="flex items-center mb-4">
               <Briefcase className="h-7 w-7 mr-2" />
-              <span className="text-xl text-sky-500 font-bold pt-1">iodyme</span>
+              <span className="text-xl text-sky-500 font-bold pt-1">
+                iodyme
+              </span>
             </div>
             <p className="text-slate-400 mb-4 max-w-md">
               A platform connecting top talent with innovative companies. Find

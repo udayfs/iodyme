@@ -9,7 +9,8 @@
     "lint": "next lint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\" --ignore-path .prettierignore",
     "prisma:generate": "bunx prisma generate",
-    "prisma:migrate": "bunx prisma migrate dev"
+    "prisma:migrate": "bunx prisma migrate dev",
+    "inngest:dev": "inngest-cli dev -u localhost:3000/api/v1/webhooks/inngest"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.25.4",

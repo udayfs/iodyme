@@ -9,6 +9,7 @@ datasource db {
 
 model User {
   user_id              String                    @id @unique
+  user_name            String
   email                String                    @unique
   image_url            String
   isSubscribed         Boolean                   @default(false)

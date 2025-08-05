@@ -1,4 +1,6 @@
-import { dbCreateUser } from "@/prisma/db";
+import { User } from "@prisma/client";
+import { dbCreateUser } from "@/db/db";
+
 import { inngest } from "@/inngest/client";
 import { NonRetriableError } from "inngest";
 import { Webhook } from "svix";
@@ -29,17 +31,24 @@ export const createClerkUser = inngest.createFunction(
       }
     });
 
-    const userId = await step.run("create-user", async () => {
+    await step.run("create-user", async () => {
       const userData = event.data.data;
       const email = userData.email_addresses.find(
         (email) => email.id === userData.primary_email_address_id,
       );
 
-      if (email === null) {
+      if (email === undefined) {
         throw new NonRetriableError("No primary email address found");
       }
 
-      await dbCreateUser();
+      await dbCreateUser({
+        user_id: userData.id,
+        email: email.email_address,
+        image_url: userData.image_url,
+        createdAt: new Date(userData.created_at),
+        updatedAt: new Date(userData.updated_at),
+      } as User);
+
       return userData.id;
     });
   },

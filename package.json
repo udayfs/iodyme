@@ -10,7 +10,8 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\" --ignore-path .prettierignore",
     "prisma:generate": "bunx prisma generate",
     "prisma:migrate": "bunx prisma migrate dev",
-    "inngest:dev": "inngest-cli dev -u localhost:3000/api/v1/webhooks/inngest"
+    "inngest:setup": "npm install -g inngest-cli@latest",
+    "inngest:dev": "inngest-cli dev"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.25.4",
@@ -29,6 +30,7 @@
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "svix": "^1.70.0",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {

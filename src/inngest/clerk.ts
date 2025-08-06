@@ -14,7 +14,7 @@ function verifyWebhook({
 }) {
   return new Webhook(process.env.CLERK_WEBHOOK_SIGNING_SECRET as string).verify(
     raw,
-    headers
+    headers,
   );
 }
 
@@ -25,7 +25,10 @@ export const createClerkUser = inngest.createFunction(
   async ({ event, step }) => {
     await step.run("verify-webhook", async () => {
       try {
-        verifyWebhook(event.data);
+        verifyWebhook({
+          raw: event.data.raw,
+          headers: event.data.headers,
+        });
       } catch {
         throw new NonRetriableError("Unrecognized webhook request");
       }
@@ -34,7 +37,7 @@ export const createClerkUser = inngest.createFunction(
     await step.run("create-user", async () => {
       const userData = event.data.data;
       const email = userData.email_addresses.find(
-        (email) => email.id === userData.primary_email_address_id
+        (email) => email.id === userData.primary_email_address_id,
       );
 
       if (email === undefined) {
@@ -43,7 +46,7 @@ export const createClerkUser = inngest.createFunction(
 
       await dbCreateUser({
         user_id: userData.id,
-        user_name: `${userData.first_name} ${userData.first_name}`,
+        user_name: `${userData.first_name} ${userData.last_name}`,
         email: email.email_address,
         image_url: userData.image_url,
         createdAt: new Date(userData.created_at),
@@ -52,5 +55,5 @@ export const createClerkUser = inngest.createFunction(
 
       return userData.id;
     });
-  }
+  },
 );

@@ -17,8 +17,6 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
-import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
-
 const navigations = [
   { name: "Find Jobs", href: "/jobs" },
   { name: "Organisations", href: "/orgs" },
@@ -72,28 +70,22 @@ function Navbar({ className }: { className?: string }) {
               Post Job
             </Button>
 
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-
-            <SignedOut>
-              {/* Auth Buttons */}
-              <div className="hidden lg:flex items-center ml-2 space-x-2">
-                <Button
-                  variant="outline"
-                  className="rounded-lg hover:cursor-pointer"
-                  onClick={() => router.push("/sign-in")}
-                >
-                  Sign In
-                </Button>
-                <Button
-                  className="rounded-lg hover:cursor-pointer bg-sky-400"
-                  onClick={() => router.push("/sign-up")}
-                >
-                  Sign Up
-                </Button>
-              </div>
-            </SignedOut>
+            {/* Auth Buttons */}
+            <div className="hidden lg:flex items-center ml-2 space-x-2">
+              <Button
+                variant="outline"
+                className="rounded-lg hover:cursor-pointer"
+                onClick={() => router.push("/sign-in")}
+              >
+                Sign In
+              </Button>
+              <Button
+                className="rounded-lg hover:cursor-pointer bg-sky-400"
+                onClick={() => router.push("/sign-up")}
+              >
+                Sign Up
+              </Button>
+            </div>
 
             {/* Desktop theme toggle */}
             <ThemeToggle />
@@ -102,10 +94,6 @@ function Navbar({ className }: { className?: string }) {
           <div className="flex lg:hidden items-center space-x-2">
             {/* Mobile theme toggle */}
             <ThemeToggle className="mr-3" />
-
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
 
             {/* Mobile Menu */}
             <Sheet modal open={isOpen} onOpenChange={setIsOpen}>
@@ -155,16 +143,15 @@ function Navbar({ className }: { className?: string }) {
                     </Button>
 
                     {/* Auth Button */}
-                    <SignedOut>
-                      <div className="grid gap-2">
-                        <Button
-                          className="mt-1 ml-2 rounded-lg hover:cursor-pointer"
-                          onClick={() => router.push("/sign-in")}
-                        >
-                          Sign In
-                        </Button>
-                      </div>
-                    </SignedOut>
+
+                    <div className="grid gap-2">
+                      <Button
+                        className="mt-1 ml-2 rounded-lg hover:cursor-pointer"
+                        onClick={() => router.push("/sign-in")}
+                      >
+                        Sign In
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </SheetContent>

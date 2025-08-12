@@ -1,4 +1,4 @@
-import prisma from "@/db/client";
+import { prisma } from "@/db/client";
 import { User } from "@prisma/client";
 
 export async function dbCreateUser(user: User): Promise<void> {

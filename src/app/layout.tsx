@@ -1,5 +1,5 @@
 import "./globals.css";
-import { ONEST_FONT } from "@/app/fonts";
+import { globalFont } from "@/app/fonts";
 import ThemeProvider from "@/components/theme-provider";
 
 function RootLayout({
@@ -9,7 +9,7 @@ function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${ONEST_FONT.className} antialiased`}>
+      <body className={`${globalFont.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

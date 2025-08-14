@@ -14,9 +14,9 @@ export const signupSchema = z.object({
     error: "Email is required!",
   }),
   password: z.string().min(6, {
-    error: "Minimum 6 characters required",
+    error: "Minimum 6 characters required!",
   }),
   name: z.string().min(1, {
-    error: "Name is required"
-  })
-})
+    error: "Name is required!",
+  }),
+});

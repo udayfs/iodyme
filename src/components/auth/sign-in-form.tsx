@@ -11,6 +11,7 @@ import * as z from "zod";
 import { login } from "@/actions";
 import Wrapper from "@/components/auth/card-wrap";
 import FormError from "@/components/auth/error";
+import FormSuccess from "@/components/auth/success";
 
 import {
   Form,
@@ -47,7 +48,12 @@ function SignInForm() {
   };
 
   return (
-    <Wrapper headerLabel="Sign in with your email">
+    <Wrapper
+      headerLabel="Sign in with your email!"
+      backButtonLabel="Don't have an account? Make one!"
+      backButtonHref="/auth/sign-up"
+      socialTag="sign in with"
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-6">
@@ -91,10 +97,11 @@ function SignInForm() {
               )}
             />
           </div>
-          <FormError error={isError}/>
+          <FormError message={isError} />
+          <FormSuccess message={isSuccess} />
           <Button
             type="submit"
-            className="w-full mt-6 cursor-pointer bg-sky-500"
+            className="w-full mt-6 cursor-pointer rounded-lg bg-sky-400 hover:bg-sky-500"
           >
             Sign in
           </Button>

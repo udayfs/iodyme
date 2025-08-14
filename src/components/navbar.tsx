@@ -75,13 +75,13 @@ function Navbar({ className }: { className?: string }) {
               <Button
                 variant="outline"
                 className="rounded-lg hover:cursor-pointer"
-                onClick={() => router.push("/sign-in")}
+                onClick={() => router.push("/auth/sign-in")}
               >
                 Sign In
               </Button>
               <Button
                 className="rounded-lg hover:cursor-pointer bg-sky-400"
-                onClick={() => router.push("/sign-up")}
+                onClick={() => router.push("/auth/sign-up")}
               >
                 Sign Up
               </Button>
@@ -147,7 +147,7 @@ function Navbar({ className }: { className?: string }) {
                     <div className="grid gap-2">
                       <Button
                         className="mt-1 ml-2 rounded-lg hover:cursor-pointer"
-                        onClick={() => router.push("/sign-in")}
+                        onClick={() => router.push("/auth/sign-in")}
                       >
                         Sign In
                       </Button>

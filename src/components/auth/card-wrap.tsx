@@ -1,12 +1,29 @@
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Briefcase } from "lucide-react";
+
+import Link from "next/link";
+import Social from "@/components/auth/socials";
 
 type WrapperProps = {
   children: React.ReactNode;
   headerLabel: string;
+  backButtonLabel: string;
+  backButtonHref: string;
+  socialTag: string;
 };
 
-function Wrapper({ children, headerLabel }: WrapperProps) {
+function Wrapper({
+  children,
+  headerLabel,
+  backButtonLabel,
+  backButtonHref,
+  socialTag,
+}: WrapperProps) {
   return (
     <Card className="w-[350px] text-gray-900 rounded-lg dark:text-white dark:bg-white/1 dark:backdrop-blur-xs border-2">
       <CardHeader>
@@ -19,6 +36,18 @@ function Wrapper({ children, headerLabel }: WrapperProps) {
         </div>
       </CardHeader>
       <CardContent>{children}</CardContent>
+      <CardFooter>
+        <div className="flex flex-col w-full items-center justify-center gap-3">
+          <span className="font-semibold">Or {socialTag}</span>
+          <Social />
+          <Link
+            className="hover:underline font-medium text-sm"
+            href={backButtonHref}
+          >
+            {backButtonLabel}
+          </Link>
+        </div>
+      </CardFooter>
     </Card>
   );
 }

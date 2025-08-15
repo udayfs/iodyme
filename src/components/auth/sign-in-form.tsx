@@ -11,7 +11,6 @@ import * as z from "zod";
 import { login } from "@/actions";
 import Wrapper from "@/components/auth/card-wrap";
 import FormError from "@/components/auth/error";
-import FormSuccess from "@/components/auth/success";
 
 import {
   Form,
@@ -24,7 +23,6 @@ import {
 
 function SignInForm() {
   const [isError, setError] = useState<string | undefined>("");
-  const [isSuccess, setSuccess] = useState<string | undefined>("");
 
   const [isPending, startTransition] = useTransition();
 
@@ -38,12 +36,10 @@ function SignInForm() {
 
   const onSubmit = async (values: z.infer<typeof signinSchema>) => {
     setError("");
-    setSuccess("");
 
     startTransition(async () => {
       const result = await login(values);
-      setError(result.error);
-      setSuccess(result.success);
+      setError(result?.error);
     });
   };
 
@@ -98,7 +94,6 @@ function SignInForm() {
             />
           </div>
           <FormError message={isError} />
-          <FormSuccess message={isSuccess} />
           <Button
             type="submit"
             className="w-full mt-6 cursor-pointer rounded-lg bg-sky-400 hover:bg-sky-500"

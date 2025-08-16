@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { signupSchema } from "@/schemas/validate";
 
 import * as z from "zod";
-import { login } from "@/actions";
+import { signup } from "@/actions/actions";
 import Wrapper from "@/components/auth/card-wrap";
 import FormError from "@/components/auth/error";
 import FormSuccess from "@/components/auth/success";
@@ -42,7 +42,7 @@ function SignUpForm() {
     setSuccess("");
 
     startTransition(async () => {
-      const result = await login(values);
+      const result = await signup(values);
       setError(result.error);
       setSuccess(result.success);
     });

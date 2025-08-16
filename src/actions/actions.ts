@@ -3,41 +3,12 @@ import * as z from "zod";
 
 import { prisma as db } from "@/db/db";
 import { signinSchema, signupSchema } from "@/schemas/validate";
-import { scrypt, randomBytes, timingSafeEqual } from "node:crypto";
 import { signIn } from "@/auth/nextauth";
 import { DEFAULT_SIGNIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
+import { hashPassword, generateSalt } from "@/actions/passwords";
 
-export async function hashPassword(
-  password: string,
-  salt: string,
-): Promise<string> {
-  return new Promise((resolve, reject) => {
-    scrypt(password.normalize(), salt, 64, (error, hash) => {
-      if (error) reject(error);
-      resolve(hash.toString("hex").normalize());
-    });
-  });
-}
-
-export async function comparePassword(
-  inputPassword: string,
-  salt: string,
-  hashedPassword: string,
-): Promise<boolean> {
-  const inputHashedPassword = await hashPassword(inputPassword, salt);
-
-  return timingSafeEqual(
-    Buffer.from(inputHashedPassword),
-    Buffer.from(hashedPassword),
-  );
-}
-
-export function generateSalt(): string {
-  return randomBytes(16).toString("hex").normalize();
-}
-
-export async function login(
+export async function signin(
   values: z.infer<typeof signinSchema>,
 ): Promise<{ error: string } | undefined> {
   const validated = signinSchema.safeParse(values);
@@ -85,7 +56,7 @@ export async function signup(
 
   if (userExist !== null) return { error: "Email already in use!" };
 
-  const salt = generateSalt();
+  const salt = await generateSalt();
   const hashedPassword = await hashPassword(password, salt);
 
   await db.user.create({
@@ -94,10 +65,10 @@ export async function signup(
       email,
       password: hashedPassword,
       salt,
-      image_url: "null",
+      image_url: "nil",
       createdAt: new Date(),
     },
   });
 
-  return { success: "User Created!" };
+  return { success: "Verification link sent!" };
 }

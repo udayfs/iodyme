@@ -4,7 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 
 import type { NextAuthConfig } from "next-auth";
 import { signinSchema } from "@/schemas/validate";
-import { comparePassword } from "@/actions";
+import { comparePassword } from "@/actions/passwords";
 import { getUserByEmail } from "@/data";
 
 export default {
@@ -22,7 +22,6 @@ export default {
 
           const isCorrectPassword = await comparePassword(
             password,
-            user.salt as string,
             user.password as string,
           );
           if (isCorrectPassword) return user;

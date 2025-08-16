@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { signinSchema } from "@/schemas/validate";
 
 import * as z from "zod";
-import { login } from "@/actions";
+import { signin } from "@/actions/actions";
 import Wrapper from "@/components/auth/card-wrap";
 import FormError from "@/components/auth/error";
 
@@ -38,7 +38,7 @@ function SignInForm() {
     setError("");
 
     startTransition(async () => {
-      const result = await login(values);
+      const result = await signin(values);
       setError(result?.error);
     });
   };

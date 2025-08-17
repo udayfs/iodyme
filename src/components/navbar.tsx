@@ -30,7 +30,7 @@ function Navbar({ className }: { className?: string }) {
   return (
     <nav
       className={cn(
-        "sticky top-0 z-50 w-full border-b bg-background/95 dark:backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        "sticky top-0 z-50 w-full border-b dark:bg-background/95 not-dark:bg-white dark:backdrop-blur dark:supports-[backdrop-filter]:bg-background/60",
         className,
       )}
     >

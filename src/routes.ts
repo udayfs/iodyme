@@ -1,7 +1,7 @@
 /**
  * An array of public routes that are accessible to unauthenticated users also.
  */
-export const PublicRoutes: string[] = ["/"];
+export const PublicRoutes: string[] = ["/", "/pricing", "/search"];
 
 /**
  * An array of public routes that are used for user authentication.

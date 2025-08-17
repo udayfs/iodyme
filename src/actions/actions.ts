@@ -61,12 +61,11 @@ export async function signup(
 
   await db.user.create({
     data: {
-      user_name: name,
+      name,
       email,
       password: hashedPassword,
       salt,
-      image_url: "nil",
-      createdAt: new Date(),
+      image: "nil",
     },
   });
 

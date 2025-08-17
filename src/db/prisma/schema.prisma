@@ -8,11 +8,11 @@ datasource db {
 }
 
 model User {
-  user_id              String                    @id @default(cuid())
-  user_name            String
+  id                   String                    @id @default(cuid())
+  name                 String?
   email                String                    @unique
   emailVerified        DateTime?
-  image_url            String
+  image                String?
   isSubscribed         Boolean                   @default(false)
   subscriptionEnds     DateTime?
   createdAt            DateTime                  @default(now())
@@ -23,6 +23,7 @@ model User {
   accounts             Account[]
   password             String?
   salt                 String?
+  role                 Role                      @default(USER)
 }
 
 model Account {
@@ -40,7 +41,7 @@ model Account {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
 }
@@ -75,7 +76,7 @@ model JobPost {
 }
 
 model JobApplication {
-  user      User                  @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user      User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   post      JobPost               @relation(fields: [postId], references: [post_id], onDelete: Cascade)
   postId    String
@@ -89,7 +90,7 @@ model JobApplication {
 
 model UserResume {
   userId        String   @id @unique
-  user          User     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   resumeFileUrl String
   resumeFileKey String
   aiSummary     String
@@ -99,10 +100,16 @@ model UserResume {
 
 model UserNotificationSettings {
   userId                  String   @id @unique
-  user                    User     @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   newJobEmailNotification Boolean  @default(false)
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  USER
+  EMPLOYER
 }
 
 enum LocationTypeEnum {

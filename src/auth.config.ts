@@ -9,7 +9,10 @@ import { getUserByEmail } from "@/data";
 
 export default {
   providers: [
-    Google,
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     LinkedIn,
     Credentials({
       async authorize(creds) {

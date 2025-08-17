@@ -1,4 +1,8 @@
 "use client";
+import * as z from "zod";
+import Wrapper from "@/components/auth/card-wrap";
+import FormError from "@/components/auth/error";
+import FormSuccess from "@/components/auth/success";
 
 import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
@@ -6,12 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signupSchema } from "@/schemas/validate";
-
-import * as z from "zod";
 import { signup } from "@/actions/actions";
-import Wrapper from "@/components/auth/card-wrap";
-import FormError from "@/components/auth/error";
-import FormSuccess from "@/components/auth/success";
+import { Loader2Icon } from "lucide-react";
 
 import {
   Form,
@@ -124,7 +124,7 @@ function SignUpForm() {
             type="submit"
             className="w-full mt-6 cursor-pointer rounded-lg bg-sky-400 hover:bg-sky-500"
           >
-            Sign up
+            {isPending ? <Loader2Icon className="animate-spin" /> : "Sign up"}
           </Button>
         </form>
       </Form>

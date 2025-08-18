@@ -46,6 +46,15 @@ model Account {
   @@id([provider, providerAccountId])
 }
 
+model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
 model Organisation {
   org_id      String    @id @default(uuid())
   org_name    String

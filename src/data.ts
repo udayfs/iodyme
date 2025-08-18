@@ -15,3 +15,19 @@ export async function getUserById(id: string) {
     },
   });
 }
+
+export async function getVerificationTokenByEmail(email: string) {
+  return await db.verificationToken.findFirst({
+    where: {
+      email,
+    },
+  });
+}
+
+export async function getVerificationTokenByToken(token: string) {
+  return await db.verificationToken.findUnique({
+    where: {
+      token,
+    },
+  });
+}

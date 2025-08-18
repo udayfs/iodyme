@@ -7,15 +7,28 @@ import { signIn } from "@/auth/nextauth";
 import { DEFAULT_SIGNIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { hashPassword, generateSalt } from "@/actions/passwords";
+import { generateVerificationToken } from "@/lib/token";
+import { getUserByEmail } from "@/data";
 
 export async function signin(
   values: z.infer<typeof signinSchema>,
-): Promise<{ error: string } | undefined> {
+): Promise<{ error?: string; success?: string } | undefined> {
   const validated = signinSchema.safeParse(values);
 
   if (!validated.success) return { error: "Invalid fields!" };
 
   const { email, password } = validated.data;
+
+  const user = await getUserByEmail(email);
+  if (!user || !user.email || !user.password) {
+    return { error: "Email does not exist!" };
+  }
+
+  if (!user.emailVerified) {
+    const verificationToken = await generateVerificationToken(user.email);
+
+    return { success: "Verification link sent!" };
+  }
 
   try {
     await signIn("credentials", {
@@ -35,8 +48,6 @@ export async function signin(
 
     throw err;
   }
-
-  return undefined;
 }
 
 export async function signup(
@@ -68,6 +79,8 @@ export async function signup(
       image: "nil",
     },
   });
+
+  const verificationToken = await generateVerificationToken(email);
 
   return { success: "Verification link sent!" };
 }

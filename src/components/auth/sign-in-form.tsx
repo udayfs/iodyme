@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { signinSchema } from "@/schemas/validate";
 import { signin } from "@/actions/actions";
 import { Loader2Icon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 import {
   Form,
@@ -23,8 +24,12 @@ import {
 
 function SignInForm() {
   const [isError, setError] = useState<string | undefined>("");
-
   const [isPending, startTransition] = useTransition();
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Please link your account with different email address!"
+      : "";
 
   const form = useForm<z.infer<typeof signinSchema>>({
     resolver: zodResolver(signinSchema),
@@ -93,7 +98,7 @@ function SignInForm() {
               )}
             />
           </div>
-          <FormError message={isError} />
+          <FormError message={isError || urlError} />
           <Button
             type="submit"
             disabled={isPending}

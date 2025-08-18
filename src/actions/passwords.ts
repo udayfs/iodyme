@@ -17,5 +17,5 @@ export async function comparePassword(
 }
 
 export async function generateSalt(): Promise<string> {
-  return bcrypt.genSalt(16);
+  return await bcrypt.genSalt(16);
 }

@@ -6,7 +6,11 @@ export const PublicRoutes: string[] = ["/", "/pricing", "/search"];
 /**
  * An array of public routes that are used for user authentication.
  */
-export const AuthRoutes: string[] = ["/auth/sign-in", "/auth/sign-up"];
+export const AuthRoutes: string[] = [
+  "/auth/sign-in",
+  "/auth/sign-up",
+  "/auth/error",
+];
 
 /**
  * The prefix for API authentication routes.

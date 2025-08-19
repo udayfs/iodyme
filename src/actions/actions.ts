@@ -7,7 +7,7 @@ import { signIn } from "@/auth/nextauth";
 import { DEFAULT_SIGNIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { hashPassword, generateSalt } from "@/actions/passwords";
-import { generateVerificationToken } from "@/lib/token";
+// import { generateVerificationToken } from "@/lib/token";
 import { getUserByEmail } from "@/data";
 
 export async function signin(
@@ -15,20 +15,22 @@ export async function signin(
 ): Promise<{ error?: string; success?: string } | undefined> {
   const validated = signinSchema.safeParse(values);
 
-  if (!validated.success) return { error: "Invalid fields!" };
+  if (!validated.success) return { error: "Invalid Credentials!" };
 
   const { email, password } = validated.data;
 
   const user = await getUserByEmail(email);
   if (!user || !user.email || !user.password) {
-    return { error: "Email does not exist!" };
+    return { error: "Invalid Credentials!" };
   }
 
-  if (!user.emailVerified) {
-    const verificationToken = await generateVerificationToken(user.email);
+  // Email Verification
 
-    return { success: "Verification link sent!" };
-  }
+  // if (!user.emailVerified) {
+  //   const verificationToken = await generateVerificationToken(user.email);
+
+  //   return { success: "Verification link sent!" };
+  // }
 
   try {
     await signIn("credentials", {
@@ -80,7 +82,8 @@ export async function signup(
     },
   });
 
-  const verificationToken = await generateVerificationToken(email);
+  // const verificationToken = await generateVerificationToken(email);
 
-  return { success: "Verification link sent!" };
+  // return { success: "Verification link sent!" };
+  return { success: "User Created!" };
 }

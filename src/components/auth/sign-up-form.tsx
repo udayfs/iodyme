@@ -1,8 +1,9 @@
 "use client";
+
 import * as z from "zod";
 import Wrapper from "@/components/auth/card-wrap";
 import FormError from "@/components/auth/error";
-import FormSuccess from "@/components/auth/success";
+// import FormSuccess from "@/components/auth/success";
 
 import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
@@ -12,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { signupSchema } from "@/schemas/validate";
 import { signup } from "@/actions/actions";
 import { Loader2Icon } from "lucide-react";
+import { redirect } from "next/navigation";
 
 import {
   Form,
@@ -45,6 +47,7 @@ function SignUpForm() {
       const result = await signup(values);
       setError(result.error);
       setSuccess(result.success);
+      if (isSuccess) redirect("/dashboard");
     });
   };
 
@@ -119,7 +122,7 @@ function SignUpForm() {
             />
           </div>
           <FormError message={isError} />
-          <FormSuccess message={isSuccess} />
+          {/* <FormSuccess message={isSuccess} /> */}
           <Button
             type="submit"
             className="w-full mt-6 cursor-pointer rounded-lg bg-sky-400 hover:bg-sky-500"
